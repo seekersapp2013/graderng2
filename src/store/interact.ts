@@ -90,7 +90,7 @@ const interactInit = () => {
       boardSorter: {
         show: false,
       },
-      people: {
+      Cluster: {
         active: null,
       },
       trackerSelector: {
@@ -319,7 +319,7 @@ const interactInit = () => {
     },
     person(username) {
       update((d) => {
-        d.people.active = username;
+        d.Cluster.active = username;
         return d;
       });
     },

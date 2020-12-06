@@ -35,7 +35,7 @@
   import { BoardStore } from "../store/boards";
   import { NomieAPI } from "../store/napi";
   import { Lang } from "../store/lang";
-  import { PeopleStore } from "../store/people-store";
+  import { ClusterStore } from "../store/Cluster-store";
   import { Device } from "../store/device-store";
   import { ContextStore } from "../store/context-store";
 
@@ -82,7 +82,7 @@
       UserStore.signout();
     },
     share() {
-      SocialShare(`I track my life with Nomie! It's free, private, and you get to design what you track. @nomieapp`, "https://nomie.app");
+      SocialShare(`My life goal is to help you increase your purchasing power, while still achieving your life's goals and objectives! Create an account today It's FREE`, "https://grader.app");
     },
     locations() {
       Interact.pickLocation();
@@ -108,11 +108,11 @@
     },
     async deleteEverything() {
       try {
-        let res = await Interact.confirm("DANGER ZONE!", `This will destroy all of your data in Nomie. Are you sure?`, "Destroy");
+        let res = await Interact.confirm("DANGER ZONE!", `This will destroy all of your data in Grader including your points!. Are you sure?`, "Destroy");
         if (res) {
           res = await Interact.confirm(
             "Sorry! One last time.. Really?",
-            `You will basically be starting over from scratch... You good with that?`,
+            `You will basically be starting over from scratch, ... You good with that?`,
             "Destroy!"
           );
 
@@ -251,12 +251,12 @@ Note: Your data will not automatically move over. You'll first need to export it
             -->
             <div class="n-list pb-2">
               <NItem itemDivider>Import Data</NItem>
-              <NItem clickable title={Lang.t('settings.nomie-api')} on:click={() => navigate('/api')}>
+              <!-- <NItem clickable title={Lang.t('settings.nomie-api')} on:click={() => navigate('/api')}>
                 <span slot="left">🕸</span>
                 <span slot="right">
                   <NIcon name="chevronRight" className="fill-faded-2" />
                 </span>
-              </NItem>
+              </NItem> -->
               <NItem
                 clickable
                 title={`${Lang.t('settings.import-from-backup')}`}
@@ -337,7 +337,7 @@ Note: Your data will not automatically move over. You'll first need to export it
               <NItem bottomLine title="Find Context" on:click={ContextStore.searchForContext}>
                 <span slot="left">💬</span>
               </NItem>
-              <NItem title="Find People" on:click={PeopleStore.searchForPeople}>
+              <NItem title="Find Cluster" on:click={ClusterStore.searchForCluster}>
                 <span slot="left">👨‍👨‍👧‍👧</span>
               </NItem>
             </div> -->
@@ -348,7 +348,17 @@ Note: Your data will not automatically move over. You'll first need to export it
               *******************************************
             -->
             <div class="n-list pb-1">
-              <NItem itemDivider>Join the Community</NItem>
+              <NItem itemDivider>Me</NItem>
+              <NItem title={Lang.t('Full Name')}>
+                <span slot="right">Babalola Tobi</span>
+              </NItem>
+              <NItem title={Lang.t('Email')}>
+                <span slot="right">tobi@digimatix.tech</span>
+              </NItem>
+              <NItem title={Lang.t('Grader Points')}>
+                <span slot="right">561</span>
+              </NItem>
+<!--               
               <NItem detail title="Learn More" href="https://nomie.app?s=dap">
                 <span slot="right" class="text-inverse-3">Nomie.app</span>
               </NItem>
@@ -361,7 +371,7 @@ Note: Your data will not automatically move over. You'll first need to export it
 
               <NItem title="Open Source" detail href="https://github.com/open-nomie/nomie">
                 <span slot="right" class="n-row text-inverse-3">GitHub</span>
-              </NItem>
+              </NItem> -->
             </div>
 
             <div class="n-list pb-1">
@@ -416,9 +426,9 @@ Note: Your data will not automatically move over. You'll first need to export it
           <!-- END Views -->
 
           <div class="n-list solo mt-3">
-            <NItem title={Lang.t('settings.nomie-needs-you', 'Nomie needs You!')}>
+            <NItem title={Lang.t('settings.nomie-needs-you', 'Grader needs You!')}>
               <Text size="sm" faded>
-                {Lang.t('settings.become-a-patron-message', 'Help keep Nomie development moving forward, free, no ads, and open.')}
+                {Lang.t('settings.become-a-patron-message', 'Help keep Grader development moving forward, free, no ads, and open.')}
               </Text>
               <img src="/images/nomie-head-on.png" height="75" alt="Nomie" slot="left" class="pr-0" />
             </NItem>
@@ -441,10 +451,10 @@ Note: Your data will not automatically move over. You'll first need to export it
                   {config.support_contact}
                 </a>
               </Text>
-              <Text size="sm" on:click={specialTap}>&copy; Copyright 2014 - {dayjs().format('YYYY')}</Text>
+              <Text size="sm" on:click={specialTap}>&copy; Copyright 2020 - {dayjs().format('YYYY')}</Text>
               <Text size="sm" inline faded>All Rights Reserved</Text>
               <Text size="sm" inline>
-                <a class="text-primary-bright" href="https://www.happydata.org" traget="_system">Happy Data, LLC</a>
+                <a class="text-primary-bright" href="https://www.creditsense.com.ng" traget="_system">Credit Sense</a>
               </Text>
             </div>
           </NItem>

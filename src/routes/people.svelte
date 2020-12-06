@@ -18,7 +18,7 @@
   import Person from "../modules/person/person";
 
   import { Lang } from "../store/lang";
-  import { PeopleStore } from "../store/people-store";
+  import { ClusterStore } from "../store/Cluster-store";
   import { Interact } from "../store/interact";
   import { LedgerStore } from "../store/ledger";
   import Text from "../components/text/text.svelte";
@@ -27,7 +27,7 @@
   export let location;
 
   let state = {
-    people: [],
+    Cluster: [],
     view: "time",
     stats: {},
     searchTerm: null,
@@ -39,23 +39,23 @@
   };
 
   /**
-   * When PeopleStore Changes,
-   * set state.people to the array of usernames
+   * When ClusterStore Changes,
+   * set state.Cluster to the array of usernames
    */
-  $: if (state.view && $PeopleStore.people) {
-    loadPeople();
+  $: if (state.view && $ClusterStore.Cluster) {
+    loadCluster();
     state.initialized = true;
   }
 
-  function loadPeople() {
+  function loadCluster() {
     const longTimeAgo = dayjs().subtract(100, "years").toDate();
 
-    state.people = getPeople().sort((a, b) => {
-      return $PeopleStore.people[a].last < $PeopleStore.people[b].last ? 1 : -1;
+    state.Cluster = getCluster().sort((a, b) => {
+      return $ClusterStore.Cluster[a].last < $ClusterStore.Cluster[b].last ? 1 : -1;
     });
   }
 
-  function searchPeople(evt) {
+  function searchCluster(evt) {
     if (evt.detail) {
       state.searchTerm = evt.detail.toLowerCase();
     } else {
@@ -69,9 +69,9 @@
 
   async function addPerson() {
     try {
-      let username = await Interact.prompt(Lang.t("people.person-name", "Person Name"));
+      let username = await Interact.prompt(Lang.t("Cluster.person-name", "Person Name"));
       if (username) {
-        let person = await PeopleStore.addByName(username);
+        let person = await ClusterStore.addByName(username);
         if (person) {
           LedgerStore.fastLog(`Added @${person.username} to +nomie`);
           personClicked(person.username);
@@ -82,19 +82,19 @@
     }
   }
 
-  function getPeople() {
-    // The $PeopleStore.peple is a map - username is the key
+  function getCluster() {
+    // The $ClusterStore.peple is a map - username is the key
     if (state.searchTerm) {
-      return Object.keys(($PeopleStore || {}).people || {}).filter((person) => {
+      return Object.keys(($ClusterStore || {}).Cluster || {}).filter((person) => {
         return person.toLowerCase().search(state.searchTerm) > -1;
       });
     } else {
-      return Object.keys(($PeopleStore || {}).people || {});
+      return Object.keys(($ClusterStore || {}).Cluster || {});
     }
   }
 
   onMount(() => {
-    loadPeople();
+    loadCluster();
     state.initialized = true;
   });
 </script>
@@ -103,10 +103,10 @@
 
 </style>
 
-<NLayout pageTitle="People">
+<NLayout pageTitle="Cluster">
   <div slot="header">
     <div class="container px-2" style="margin-top:2px;">
-      <NSearchBar compact on:change={searchPeople} on:clear={clearSearch} placeholder="Search People..." autocomplete>
+      <NSearchBar compact on:change={searchCluster} on:clear={clearSearch} placeholder="Search Cluster..." autocomplete>
         <button on:click={addPerson} slot="right" class="btn btn-icon btn-clear">
           <NIcon name="userAdd" className="fill-primary-bright" />
         </button>
@@ -116,7 +116,7 @@
 
   <div slot="content" class="container">
     <div class="n-list my-2 bg-transparent">
-      {#if !state.people.length && !state.searchTerm && state.initialized}
+      {#if !state.Cluster.length && !state.searchTerm && state.initialized}
         <NItem className="mt-5 py-3" bg="transparent">
           <div class="text-md text-center">
             Track & monitor how you interact
@@ -126,23 +126,23 @@
           <div class="text-sm mt-2 text-center">
             <span class="fake-link" on:click={addPerson}>Add a person</span>
             or
-            <span class="fake-link" on:click={PeopleStore.searchForPeople}>Find recent @people</span>
+            <span class="fake-link" on:click={ClusterStore.searchForCluster}>Find recent @Cluster</span>
           </div>
 
         </NItem>
       {:else if !state.initialized}
         <NItem>Loading...</NItem>
-      {:else if !state.people.length && state.searchTerm}
+      {:else if !state.Cluster.length && state.searchTerm}
         <NItem>Nothing found for @{state.searchTerm}</NItem>
       {/if}
 
-      {#each state.people as person}
+      {#each state.Cluster as person}
         <NItem bottomLine truncate clickable={false} className="py-3">
           <div slot="left">
-            {#if $PeopleStore.people[person] && $PeopleStore.people[person].avatar}
-              <AvatarBall size={48} avatar={$PeopleStore.people[person].avatar} style={`border-radius:32%; overflow:hidden`} />
-            {:else if $PeopleStore.people[person] && $PeopleStore.people[person].displayName}
-              <AvatarBall size={48} username={$PeopleStore.people[person].displayName} style={`border-radius:32%; overflow:hidden`} />
+            {#if $ClusterStore.Cluster[person] && $ClusterStore.Cluster[person].avatar}
+              <AvatarBall size={48} avatar={$ClusterStore.Cluster[person].avatar} style={`border-radius:32%; overflow:hidden`} />
+            {:else if $ClusterStore.Cluster[person] && $ClusterStore.Cluster[person].displayName}
+              <AvatarBall size={48} username={$ClusterStore.Cluster[person].displayName} style={`border-radius:32%; overflow:hidden`} />
             {/if}
           </div>
 
@@ -158,11 +158,11 @@
               }}>
               <NIcon name="chart" className="fill-primary-bright" size={18} />
             </Button>
-            <Text size="md" lineHeightMd truncate className="filler">{($PeopleStore.people[person] || {}).displayName}</Text>
+            <Text size="md" lineHeightMd truncate className="filler">{($ClusterStore.Cluster[person] || {}).displayName}</Text>
           </div>
 
-          {#if $PeopleStore.people[person] && $PeopleStore.people[person].last}
-            <Text size="sm" faded>{dayjs($PeopleStore.people[person].last).fromNow()}</Text>
+          {#if $ClusterStore.Cluster[person] && $ClusterStore.Cluster[person].last}
+            <Text size="sm" faded>{dayjs($ClusterStore.Cluster[person].last).fromNow()}</Text>
           {/if}
           <div slot="right" class="n-row">
 
@@ -172,7 +172,7 @@
               on:click={(evt) => {
                 personClicked(person);
               }}>
-              <Text size="xs" bold className="text-primary-bright text-uppercase">{Lang.t('people.check-in', 'Check-in')}</Text>
+              <Text size="xs" bold className="text-primary-bright text-uppercase">{Lang.t('Cluster.check-in', 'Check-in')}</Text>
             </Button>
 
           </div>

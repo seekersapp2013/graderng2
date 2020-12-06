@@ -58,7 +58,7 @@
               Interact.openStats(item.search);
             }}>
             {#if item.type == 'person'}
-              <Dymoji person={$PeopleStore.people[item.value]} className="mr-2" size={20} radius={0.3} />
+              <Dymoji person={$ClusterStore.Cluster[item.value]} className="mr-2" size={20} radius={0.3} />
             {/if}
             {#if item.type == 'tracker'}{TrackerStore.byTag(item.value).emoji}{/if}
             {item.search}

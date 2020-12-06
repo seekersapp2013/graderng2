@@ -155,7 +155,7 @@ export function N1ImportNormalizer(importer: any): INormalizedImport {
     boards: getBoards(importer),
     logs: getLogs(importer),
     context: [],
-    people: {},
+    Cluster: {},
     dashboards: [],
     locations: [],
   };

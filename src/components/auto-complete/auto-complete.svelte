@@ -1,6 +1,6 @@
 <script>
   import { TrackerStore } from "../../store/tracker-store";
-  import { PeopleStore } from "../../store/people-store";
+  import { ClusterStore } from "../../store/Cluster-store";
   import { ContextStore } from "../../store/context-store";
   import Dymoji from "../../components/dymoji/dymoji.svelte";
   import tick from "../../utils/tick/tick";
@@ -29,7 +29,7 @@
 
   /**
    * Auto Complete Search
-   * Searches trackers, people and context
+   * Searches trackers, Cluster and context
    * THIS IS A MESS
    *
    **/
@@ -46,13 +46,13 @@
           });
         return tkrs.length ? tkrs : null;
 
-        // Search for People
+        // Search for Cluster
       } else if (type === "person") {
-        let people = Object.keys($PeopleStore.people).filter(person => {
+        let Cluster = Object.keys($ClusterStore.Cluster).filter(person => {
           return person.search(searchTag.toLowerCase()) > -1;
         });
-        return people.length
-          ? people.map(username => {
+        return Cluster.length
+          ? Cluster.map(username => {
               return {
                 tag: username,
                 emoji: "👤",
@@ -209,14 +209,14 @@
         }}>
         {#if tracker.type == 'person'}
           <Dymoji
-            person={$PeopleStore.people[tracker.tag]}
+            person={$ClusterStore.Cluster[tracker.tag]}
             className="mr-2"
             size={20}
             radius={0.3} />
         {:else}{tracker.emoji}{/if}
         <div style="max-width:120px;" class="ml-1 truncate">
           {#if tracker.type == 'person'}
-            {$PeopleStore.people[tracker.tag].displayName}
+            {$ClusterStore.Cluster[tracker.tag].displayName}
           {:else if tracker.type == 'context'}
             {tracker.tag}
           {:else}{tracker.label}{/if}

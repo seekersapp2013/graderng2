@@ -11,7 +11,7 @@
   // Containers
   import Interactions from "./containers/interactions/interactions.svelte";
   import LibraryModal from "./containers/library/library.svelte";
-  import PersonModal from "./containers/people/person-modal.svelte";
+  import PersonModal from "./containers/Cluster/person-modal.svelte";
   // import Modal from "./components/modal/modal.svelte";
   import StatsModal from "./containers/stats/stats-modal.svelte";
   import StreakModal from "./containers/steak/streak-modal.svelte";
@@ -35,7 +35,7 @@
   import { TrackerLibrary } from "./store/tracker-library";
   import { CommanderStore } from "./store/commander"; // commander - /?note=hi&lat=35&lng=-81.32
   import { NomieAPI } from "./store/napi"; // Store for interacting with the Nomie API
-  import { PeopleStore } from "./store/people-store"; // Store for holding People
+  import { ClusterStore } from "./store/Cluster-store"; // Store for holding Cluster
   import { ContextStore } from "./store/context-store"; // Store for holding Post Context (categories)
   import { DashboardStore } from "./store/dashboard-store"; // Store for holding Post Context (categories)
   import { AppStore } from "./store/app-store";
@@ -162,7 +162,7 @@
     // Set the user if they're logged in
     ready = true;
     timer.check("Starting Store Intialization sync");
-    PeopleStore.init(); // Initialize the People Store
+    ClusterStore.init(); // Initialize the Cluster Store
     Locations.init(); // Initialize Location Store
     ContextStore.init(); // check if this is a new version
     DashboardStore.init(); // Initilize Dashboards
@@ -208,7 +208,7 @@
 {#if ready && $TrackerLibrary.show}
   <LibraryModal />
 {/if}
-{#if ready && $Interact.people.active}
+{#if ready && $Interact.Cluster.active}
   <PersonModal />
 {/if}
 {#if $Interact.blocker.show}

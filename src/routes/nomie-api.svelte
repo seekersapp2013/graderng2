@@ -397,7 +397,7 @@
           </NItem>
           <NItem itemDivider compact topLine>Fields</NItem>
           <NItem compact title="note (required)" className="py-1">
-            <Text size="sm" faded>Accepts any text, including #tracker, @people, etc.</Text>
+            <Text size="sm" faded>Accepts any text, including #tracker, @Cluster, etc.</Text>
           </NItem>
           <NItem compact title="api_key (required)" className="py-1">
             <Text size="sm" faded>The api key provided above</Text>
@@ -423,7 +423,7 @@
               <strong>FIELDS</strong>
               <br />
               <strong>note *</strong>
-              Accepts any text, including #tracker, @people, etc.
+              Accepts any text, including #tracker, @Cluster, etc.
               <br />
               <strong>api_key *</strong>
               The api key provided above

@@ -40,12 +40,12 @@
 </script>
 
 <div class="n-list my-2 features">
-  <ListItem bottomLine className="py-2" title="People Tracking" description="Keep track of those you interact with the most">
+  <ListItem bottomLine className="py-2" title="Cluster Tracking" description="Keep track of those you interact with the most">
     <div slot="right" class="pl-2">
       <ToggleSwitch
-        value={$FeatureStore.people}
+        value={$FeatureStore.Cluster}
         on:change={(change) => {
-          FeatureStore.toggle('people', change.detail);
+          FeatureStore.toggle('Cluster', change.detail);
         }} />
     </div>
   </ListItem>

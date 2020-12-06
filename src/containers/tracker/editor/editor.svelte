@@ -360,8 +360,8 @@
           <NInput
             type="textarea"
             rows="2"
-            label={Lang.t('tracker.include', 'Additional trackers or people to include')}
-            placeholder={Lang.t('tracker.include-placeholder', 'Include other #trackers, @people, +context')}
+            label={Lang.t('tracker.include', 'Additional trackers or Cluster to include')}
+            placeholder={Lang.t('tracker.include-placeholder', 'Include other #trackers, @Cluster, +context')}
             bind:value={data.tracker.include} />
           <AutoComplete
             input={data.tracker.include}
@@ -370,7 +370,7 @@
               data.tracker.include = evt.detail.note + '';
             }} />
           <Text size="xs" faded className="my-2">
-            Automatically insert #trackers, @people, and +context when using this tracker. Pass the value using: #hashtag(*).
+            Automatically insert #trackers, @Cluster, and +context when using this tracker. Pass the value using: #hashtag(*).
           </Text>
         </div>
       {/if}

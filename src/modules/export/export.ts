@@ -4,7 +4,7 @@ import Storage from "../storage/storage";
 import config from "../../config/appConfig";
 import { LedgerStore } from "../../store/ledger";
 import { Interact } from "../../store/interact";
-import { PeopleStore } from "../../store/people-store";
+import { ClusterStore } from "../../store/Cluster-store";
 import { Locations } from "../../store/locations";
 import { DashboardStore } from "../../store/dashboard-store";
 import { ContextStore } from "../../store/context-store";
@@ -14,7 +14,7 @@ import type Board from "../board/board";
 import type NLog from "../nomie-log/nomie-log";
 import type { Dashboard } from "../dashboard/dashboard";
 import type Location from "../locate/Location";
-import type { ITrackers, IPeople } from "../import/import";
+import type { ITrackers, ICluster } from "../import/import";
 
 export interface IBackupItems {
   nomie: {
@@ -26,7 +26,7 @@ export interface IBackupItems {
   boards: Array<Board>;
   events: Array<NLog>;
   trackers: ITrackers;
-  people: IPeople;
+  Cluster: ICluster;
   locations: Array<Location>;
   dashboards: Array<Dashboard>;
   context: Array<string>;
@@ -51,7 +51,7 @@ export default class Export {
       boards: options.boards || [],
       events: options.events || [],
       trackers: options.trackers || {},
-      people: options.people || {},
+      Cluster: options.Cluster || {},
       locations: options.locations || [],
       dashboards: options.dashboards || [],
       context: options.context || [],
@@ -60,10 +60,10 @@ export default class Export {
 
   async start() {
     try {
-      this.fireChange("People...");
-      // Get People
-      let people = await PeopleStore.getPeople();
-      this.backup.people = people || {};
+      this.fireChange("Cluster...");
+      // Get Cluster
+      let Cluster = await ClusterStore.getCluster();
+      this.backup.Cluster = Cluster || {};
 
       this.fireChange("Dashboards...");
       let dashboards = await DashboardStore.get();
@@ -109,7 +109,7 @@ export default class Export {
     });
   }
 
-  getPeople() {
+  getCluster() {
     return Storage.get(`${config.data_root}/${config.tracker_file}`).then((res) => {
       return res;
     });

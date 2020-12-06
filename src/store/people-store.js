@@ -1,5 +1,5 @@
 /**
- * People Store
+ * Cluster Store
  
  */
 
@@ -26,7 +26,7 @@ import dayjs from "dayjs";
 
 import Person from "../modules/person/person";
 
-const console = new Logger("🗺 $PeopleStore");
+const console = new Logger("🗺 $ClusterStore");
 
 const toUsername = (username) => {
   username = username.replace("@", "").trim();
@@ -43,23 +43,23 @@ function getState() {
   return returnState;
 }
 
-const searchForPeople = async () => {
+const searchForCluster = async () => {
   let loadingFinished = Interact.loading("Finding @usernames...");
   const logs = await LedgerStore.query({ start: dayjs().subtract(3, "month") });
 
-  let people = [];
+  let Cluster = [];
   logs.forEach((log) => {
     let meta = log.getMeta();
     // Array of usernames.
-    meta.people.forEach((personElement) => {
+    meta.Cluster.forEach((personElement) => {
       let username = personElement.id.toLowerCase();
-      people.push({ username, last: new Date(log.end) });
+      Cluster.push({ username, last: new Date(log.end) });
     });
-    // people = [...people, ...meta.people];
+    // Cluster = [...Cluster, ...meta.Cluster];
   });
 
   let map = {};
-  people.forEach((person) => {
+  Cluster.forEach((person) => {
     map[person.username] = map[person.username] || { username: person.username, dates: [] };
     map[person.username].dates.push(person.last);
   });
@@ -79,40 +79,40 @@ const searchForPeople = async () => {
 };
 
 /**
- * PEOPLE STORE
- * Used for global people things!
+ * Cluster STORE
+ * Used for global Cluster things!
  * March 8 2020 - the Coronavirus COVID-19 is getting crazy.
  */
 
-const PeopleInit = () => {
-  const PeopleState = {
-    people: {},
+const ClusterInit = () => {
+  const ClusterState = {
+    Cluster: {},
     stats: {},
   };
-  const { update, subscribe, set } = writable(PeopleState);
+  const { update, subscribe, set } = writable(ClusterState);
 
   const methods = {
     async init() {
-      await methods.getPeople();
-      // Refresh the people every minute
+      await methods.getCluster();
+      // Refresh the Cluster every minute
       // This should help with blockstack users
       setInterval(() => {
-        methods.getPeople();
+        methods.getCluster();
       }, 1000 * 60 * 5);
     },
     savePerson(person) {
       update((state) => {
-        state.people[person.username] = person;
-        this.write(state.people);
+        state.Cluster[person.username] = person;
+        this.write(state.Cluster);
         return state;
       });
     },
     async deletePerson(person) {
       update((state) => {
         if (typeof person == "string") {
-          delete state.people[person];
+          delete state.Cluster[person];
         } else {
-          delete state.people[person.username];
+          delete state.Cluster[person.username];
         }
         return state;
       });
@@ -121,8 +121,8 @@ const PeopleInit = () => {
     get(name) {
       let person;
       update((state) => {
-        if (state.people.hasOwnProperty(name)) {
-          person = state.people[name];
+        if (state.Cluster.hasOwnProperty(name)) {
+          person = state.Cluster[name];
         } else {
           person = new Person(name);
         }
@@ -130,55 +130,55 @@ const PeopleInit = () => {
       });
       return person;
     },
-    async getPeople() {
-      // Get people from storage
-      let people = await Storage.get(`${config.data_root}/${config.data_people_key}.json`);
+    async getCluster() {
+      // Get Cluster from storage
+      let Cluster = await Storage.get(`${config.data_root}/${config.data_Cluster_key}.json`);
       // Update State
       update((state) => {
-        let statePeople = state.people;
-        if (people) {
+        let stateCluster = state.Cluster;
+        if (Cluster) {
           // Turn it in to a Person Object
-          Object.keys(people)
+          Object.keys(Cluster)
             .filter((row) => row)
             .forEach((personKey) => {
-              statePeople[personKey.toLowerCase()] = new Person(people[personKey]);
+              stateCluster[personKey.toLowerCase()] = new Person(Cluster[personKey]);
             });
         }
-        state.people = statePeople;
+        state.Cluster = stateCluster;
         return state;
       });
-      return people;
+      return Cluster;
     },
-    async saveFoundPeople(peopleArray) {
+    async saveFoundCluster(ClusterArray) {
       update((state) => {
-        state.people = state.people || {};
+        state.Cluster = state.Cluster || {};
         let changed = false;
 
-        // Loop over array of people { username: x, last: date }
-        peopleArray.forEach((person) => {
+        // Loop over array of Cluster { username: x, last: date }
+        ClusterArray.forEach((person) => {
           if (typeof person != "string") {
             // If this is a new person
-            if (!state.people.hasOwnProperty(person.username)) {
-              state.people[person.username] = new Person(person.username);
-              state.people[person.username].last = person.last || new Date();
+            if (!state.Cluster.hasOwnProperty(person.username)) {
+              state.Cluster[person.username] = new Person(person.username);
+              state.Cluster[person.username].last = person.last || new Date();
               changed = true;
             } else {
               // If the current LAST date is less than (older) than the one provided
               // use the one provided, otherwise do nothing.
-              if (state.people[person.username].last < person.last) {
-                state.people[person.username].last = person.last;
+              if (state.Cluster[person.username].last < person.last) {
+                state.Cluster[person.username].last = person.last;
                 changed = true;
               }
             }
           } else {
             // Should no longer ever happen
-            Interact.alert("Error", "Sorry savePeople was called with just a string. Please report this!");
+            Interact.alert("Error", "Sorry saveCluster was called with just a string. Please report this!");
           }
         });
 
         // Has Changes?
         if (changed) {
-          this.write(state.people);
+          this.write(state.Cluster);
         }
         // Return state to update
         return state;
@@ -191,18 +191,18 @@ const PeopleInit = () => {
         let username = toUsername(personName).toLowerCase();
         let added = false;
         update((state) => {
-          state.people = state.people || {};
-          if (!state.people.hasOwnProperty(username)) {
+          state.Cluster = state.Cluster || {};
+          if (!state.Cluster.hasOwnProperty(username)) {
             person = new Person({ username: username, displayName: personName });
-            state.people[username] = person;
+            state.Cluster[username] = person;
             added = true;
           }
           _state = state;
           return state;
         });
         if (added) {
-          this.write(_state.people);
-          return _state.people[username];
+          this.write(_state.Cluster);
+          return _state.Cluster[username];
         } else {
           throw new Error("That username is already taken, please try another name.");
         }
@@ -211,23 +211,23 @@ const PeopleInit = () => {
     },
     async writeState() {
       update((state) => {
-        methods.write(state.people);
+        methods.write(state.Cluster);
         return state;
       });
     },
     async write(payload) {
-      return Storage.put(`${config.data_root}/${config.data_people_key}.json`, payload);
+      return Storage.put(`${config.data_root}/${config.data_Cluster_key}.json`, payload);
     },
     // async stats(options = {}) {
-    //   return await getRecentPeopleStats();
+    //   return await getRecentClusterStats();
     // },
-    async searchForPeople() {
-      let people = await searchForPeople();
-      if (people.length) {
-        const confirm = await Interact.confirm(`${people.length} @username's found`, "Add them to your People list?");
+    async searchForCluster() {
+      let Cluster = await searchForCluster();
+      if (Cluster.length) {
+        const confirm = await Interact.confirm(`${Cluster.length} @username's found`, "Add them to your Cluster list?");
         if (confirm) {
-          await methods.saveFoundPeople(people);
-          Interact.alert("👍 People list updated!");
+          await methods.saveFoundCluster(Cluster);
+          Interact.alert("👍 Cluster list updated!");
         }
       } else {
         Interact.alert(`Sorry, no @username's found in the last 6 months`);
@@ -243,4 +243,4 @@ const PeopleInit = () => {
   };
 };
 
-export const PeopleStore = PeopleInit();
+export const ClusterStore = ClusterInit();

@@ -32,7 +32,7 @@ import config from "../config/appConfig";
 // Stores
 import { Interact } from "./interact";
 import { LastUsed } from "./last-used";
-import { PeopleStore } from "./people-store";
+import { ClusterStore } from "./Cluster-store";
 import { ContextStore } from "./context-store";
 import { OfflineQueue } from "./offline-queue-store";
 import { ActiveLogStore } from "./active-log";
@@ -401,14 +401,14 @@ const ledgerInit = () => {
           currentState.booksLastUpdate[date] = timeString;
           // Set the Last Used for Trackers in this log
           LastUsed.record(log);
-          // Get Log Meta information - context and people references
+          // Get Log Meta information - context and Cluster references
           const meta = log.getMeta();
-          // Save any new people to the People Store
-          // Passing an Array of USERNAMES - people store should convert it to the right thing
-          PeopleStore.saveFoundPeople(
-            meta.people.map((peopleElement) => {
+          // Save any new Cluster to the Cluster Store
+          // Passing an Array of USERNAMES - Cluster store should convert it to the right thing
+          ClusterStore.saveFoundCluster(
+            meta.Cluster.map((ClusterElement) => {
               return {
-                username: peopleElement.id,
+                username: ClusterElement.id,
                 last: log.end,
               };
             })

@@ -27,8 +27,8 @@ describe("modules/nomie-log", function () {
     log = new Log(stub);
     const meta = log.getMeta();
 
-    expect(meta.people[0].id).toEqual("brandon");
-    expect(meta.people[1].id).toEqual("betty");
+    expect(meta.Cluster[0].id).toEqual("brandon");
+    expect(meta.Cluster[1].id).toEqual("betty");
     expect(meta.context[0].id).toEqual("testing");
     expect(meta.context[1].id).toEqual("more");
     expect(meta.context[2].id).toEqual("love");

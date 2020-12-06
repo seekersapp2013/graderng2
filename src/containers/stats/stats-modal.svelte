@@ -53,7 +53,7 @@
   import { UserStore } from "../../store/user-store";
   import { Lang } from "../../store/lang";
   import { TrackerStore } from "../../store/tracker-store";
-  import { PeopleStore } from "../../store/people-store";
+  import { ClusterStore } from "../../store/Cluster-store";
 
   import StatsOverview from "./stats-overview.svelte";
   import StatsCompare from "./stats-compare.svelte";

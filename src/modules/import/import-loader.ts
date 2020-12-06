@@ -2,7 +2,7 @@ import Importer from "./import";
 import type { IBackupItems } from "../export/export";
 
 import { ContextStore } from "../../store/context-store";
-import { PeopleStore } from "../../store/people-store";
+import { ClusterStore } from "../../store/Cluster-store";
 import { LedgerStore } from "../../store/ledger";
 import { TrackerStore } from "../../store/tracker-store";
 import { BoardStore } from "../../store/boards";
@@ -15,7 +15,7 @@ import type { INormalizedImport } from "./import";
 
 import type NLog from "../nomie-log/nomie-log";
 
-type IImportTypes = "dashboards" | "locations" | "people" | "trackers" | "logs" | "context";
+type IImportTypes = "dashboards" | "locations" | "Cluster" | "trackers" | "logs" | "context";
 export interface IImportStatus {
   importing: IImportTypes;
   progress?: number;
@@ -60,8 +60,8 @@ export default class ImportLoader {
       await this.importTrackers();
       func({ importing: "dashboards" });
       await this.importDashboards();
-      func({ importing: "people" });
-      await this.importPeople();
+      func({ importing: "Cluster" });
+      await this.importCluster();
       func({ importing: "context" });
       await this.importContext();
       func({ importing: "locations" });
@@ -119,14 +119,14 @@ export default class ImportLoader {
     return this;
   }
 
-  public async importPeople() {
-    let people = await PeopleStore.getPeople();
-    people = people || {};
-    await PeopleStore.write({
-      ...(this.normalized || { people: {} }).people,
-      ...people,
+  public async importCluster() {
+    let Cluster = await ClusterStore.getCluster();
+    Cluster = Cluster || {};
+    await ClusterStore.write({
+      ...(this.normalized || { Cluster: {} }).Cluster,
+      ...Cluster,
     });
-    return people;
+    return Cluster;
   }
 
   public async importContext() {

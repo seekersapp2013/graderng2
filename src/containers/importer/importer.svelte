@@ -37,7 +37,7 @@
     locations: { running: false, done: false },
     logs: { running: false, done: false, progress: 0 },
     trackers: { running: false, done: false },
-    people: { running: false, done: false },
+    Cluster: { running: false, done: false },
     dashboards: { running: false, done: false },
     context: { running: false, done: false },
     all: { running: false, done: false },
@@ -133,11 +133,11 @@
       );
     },
 
-    async importPeople(confirmation: boolean = false) {
+    async importCluster(confirmation: boolean = false) {
       return await methods.run(
-        "people",
+        "Cluster",
         async () => {
-          return await importLoader.importPeople();
+          return await importLoader.importCluster();
         },
         confirmation
       );
@@ -340,19 +340,19 @@
           }} />
       {/if}
 
-      <!-- People -->
-      {#if (Object.keys(importLoader.normalized.people) || []).length > 0}
+      <!-- Cluster -->
+      {#if (Object.keys(importLoader.normalized.Cluster) || []).length > 0}
         <ImporterItem
           emoji="👩🏽‍💼"
-          title="People"
-          count={(Object.keys(importLoader.normalized.people) || []).length}
-          bind:status={importing.people}
+          title="Cluster"
+          count={(Object.keys(importLoader.normalized.Cluster) || []).length}
+          bind:status={importing.Cluster}
           on:import={() => {
-            methods.importPeople(true);
+            methods.importCluster(true);
           }} />
       {/if}
 
-      <!-- People -->
+      <!-- Cluster -->
       {#if (importLoader.normalized.context || []).length > 0}
         <ImporterItem
           emoji="💭"

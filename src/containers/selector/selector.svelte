@@ -13,7 +13,7 @@
 
   // Stores
   import { TrackerStore } from "../../store/tracker-store";
-  import { PeopleStore } from "../../store/people-store";
+  import { ClusterStore } from "../../store/Cluster-store";
   import { Interact } from "../../store/interact";
   import { ContextStore } from "../../store/context-store";
   import { Lang } from "../../store/lang";
@@ -61,11 +61,11 @@
         break;
 
       case "person":
-        state.title = multiple ? "Select People" : "Select a Person";
+        state.title = multiple ? "Select Cluster" : "Select a Person";
 
-        state.items = Object.keys($PeopleStore.people || {})
+        state.items = Object.keys($ClusterStore.Cluster || {})
           .map((username) => {
-            return $PeopleStore.people[username];
+            return $ClusterStore.Cluster[username];
           })
           .sort((a, b) => {
             return a.username.toLowerCase() > b.username.toLowerCase() ? 1 : -1;
@@ -186,7 +186,7 @@
       </div>
     {:else if type == 'person'}
       <!-- It's a person list -->
-      <div class="list people">
+      <div class="list Cluster">
         {#each state.items as person}
           {#if !methods.alphaGroupExists(person.displayName)}
             <NItem className="bg-light text-faded sticky-top" title={person.displayName.substr(0, 1).toUpperCase()} />

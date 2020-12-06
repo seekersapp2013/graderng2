@@ -35,7 +35,7 @@
   import { Interact } from "../../store/interact";
   import { DashboardStore } from "../../store/dashboard-store";
   import { LedgerStore } from "./../../store/ledger.js";
-  import { PeopleStore } from "./../../store/people-store.js";
+  import { ClusterStore } from "./../../store/Cluster-store.js";
   import { TrackerStore } from "../../store/tracker-store";
   import { LastUsed } from "../../store/last-used";
   import type Person from "../../modules/person/person";
@@ -50,11 +50,11 @@
   // import { getDashboardStartEndDates } from "./dashboard-helpers";
 
   let trackers: any; // holder of user Trackers - loaded from subscribe
-  let people: any; // holder of User People - loaded from subscribe
+  let Cluster: any; // holder of User Cluster - loaded from subscribe
   let dashboards: Array<Dashboard>; // holder of Dashboards
   let unsubTrackers: Function; // Unsubscribe from trackers
   let unsubDashboard: Function; // Unsubscribe from dashboard
-  let unsubPeople: Function; // Unsubscribe from people
+  let unsubCluster: Function; // Unsubscribe from Cluster
   let ready = false; // Is the component Ready
   let editingWidget: Widget; // Editing block - if defined
   let editMode = false; // Toggle Edit mode
@@ -173,7 +173,7 @@
       if (widget.element.type == "tracker") {
         widget.lastUsed = await LastUsed.get(widget.element.id);
       } else if (widget.element.type == "person") {
-        let person: Person = await $PeopleStore.people[widget.element.id];
+        let person: Person = await $ClusterStore.Cluster[widget.element.id];
         if (person) {
           widget.lastUsed = person.last;
         }
@@ -288,8 +288,8 @@
         if (thisWidget.element && thisWidget.element.type == "tracker") {
           thisWidget.element.obj = TrackerStore.getByTag(thisWidget.element.id);
           // If it's a person and the person exists
-        } else if (thisWidget.element && thisWidget.element.type == "person" && people[thisWidget.element.id]) {
-          thisWidget.element.obj = people[thisWidget.element.id];
+        } else if (thisWidget.element && thisWidget.element.type == "person" && Cluster[thisWidget.element.id]) {
+          thisWidget.element.obj = Cluster[thisWidget.element.id];
         }
         return thisWidget;
       });
@@ -302,7 +302,7 @@
   }
 
   // If Something changes - update the last Active Page
-  // $: if (trackers && people && dashboards && activePage !== lastActivePage) {
+  // $: if (trackers && Cluster && dashboards && activePage !== lastActivePage) {
   //   lastActivePage = activePage;
   // }
 
@@ -337,13 +337,13 @@
         trackers = tkrs.trackers;
       }
     });
-    unsubPeople = PeopleStore.subscribe((pple) => {
-      if (pple.people) {
-        people = pple.people;
+    unsubCluster = ClusterStore.subscribe((pple) => {
+      if (pple.Cluster) {
+        Cluster = pple.Cluster;
       }
     });
     unsubDashboard = DashboardStore.subscribe((dbStore) => {
-      if (dbStore.dashboards && trackers && people) {
+      if (dbStore.dashboards && trackers && Cluster) {
         dashboards = dbStore.dashboards;
         if (!editMode) {
           initDashboard();
@@ -366,7 +366,7 @@
 
   onDestroy(() => {
     unsubTrackers();
-    unsubPeople();
+    unsubCluster();
     unsubDashboard();
   });
 </script>
@@ -429,7 +429,7 @@
       {/if}
       {#if !editMode && activeDashboard && activeDashboard.widgets}
         <div class="dashboard-wrapper" on:swipeleft={DashboardStore.next} on:swiperight={DashboardStore.previous}>
-          {#if people && trackers}
+          {#if Cluster && trackers}
             {#if activeDashboard.widgets.length == 0}
               <div class="center-all p-5 n-panel vertical">
                 <Text faded size="md" center>

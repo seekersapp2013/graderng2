@@ -64,11 +64,11 @@
   <div class="top center-grow mx-auto" style="max-width:320px; padding:16px;">
     <img src="/images/nomie-head-on.png" style="width:60%; max-width:300px;" alt="nomie-head-on" />
     <Text bold center lineHeightMd className="mt-4">
-      Hi! I'm Nomie.
+      Hi! I'm Grader.
       <br />
-      The completely private,
+      My life goal is to help you increase your purchasing power, while still achieving your life's goals and objectives! 
       <br />
-      free & open life tracker.
+      Create an account today It's FREE
     </Text>
     <Text size="xs" lineHeightMd center faded className="mt-2 mb-2">
       <Icon name="warning" size="14" />

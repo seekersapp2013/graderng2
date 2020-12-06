@@ -51,7 +51,7 @@ export default {
       close: "Close",
       today: "Today",
     },
-    people: {
+    Cluster: {
       with: "With {{person}}",
     },
     stats: {
@@ -67,7 +67,7 @@ export default {
       history: "History",
       settings: "Settings",
       plugins: "Plugins",
-      people: "People",
+      Cluster: "Cluster",
     },
     history: {
       "no-records-found": "No logs found",

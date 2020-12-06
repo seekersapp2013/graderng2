@@ -23,13 +23,13 @@
   import { LedgerStore } from "../../store/ledger";
 
   const state = {
-    note: ` @${$Interact.people.active} `,
+    note: ` @${$Interact.Cluster.active} `,
     checkingIn: false,
     checkedIn: false,
     score: 0,
   };
   const getPlaceholder = () => {
-    return `What are you and @${$Interact.people.active} up to?`;
+    return `What are you and @${$Interact.Cluster.active} up to?`;
   };
   let checkIn = async () => {
     state.checkingIn = true;
