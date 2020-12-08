@@ -35,7 +35,7 @@
   import { BoardStore } from "../store/boards";
   import { NomieAPI } from "../store/napi";
   import { Lang } from "../store/lang";
-  import { ClusterStore } from "../store/Cluster-store";
+  import { PeopleStore } from "../store/People-store";
   import { Device } from "../store/device-store";
   import { ContextStore } from "../store/context-store";
 
@@ -337,7 +337,7 @@ Note: Your data will not automatically move over. You'll first need to export it
               <NItem bottomLine title="Find Context" on:click={ContextStore.searchForContext}>
                 <span slot="left">💬</span>
               </NItem>
-              <NItem title="Find Cluster" on:click={ClusterStore.searchForCluster}>
+              <NItem title="Find People" on:click={PeopleStore.searchForPeople}>
                 <span slot="left">👨‍👨‍👧‍👧</span>
               </NItem>
             </div> -->
@@ -348,14 +348,9 @@ Note: Your data will not automatically move over. You'll first need to export it
               *******************************************
             -->
             <div class="n-list pb-1">
-              <NItem itemDivider>Me</NItem>
-              <NItem title={Lang.t('Full Name')}>
-                <span slot="right">Babalola Tobi</span>
-              </NItem>
-              <NItem title={Lang.t('Email')}>
-                <span slot="right">tobi@digimatix.tech</span>
-              </NItem>
-              <NItem title={Lang.t('Grader Points')}>
+              <NItem itemDivider>Grader Points</NItem>
+              
+              <NItem title={Lang.t('My Points')}>
                 <span slot="right">561</span>
               </NItem>
 <!--               
@@ -392,9 +387,9 @@ Note: Your data will not automatically move over. You'll first need to export it
               </NItem>
               <NItem title={Lang.t('general.launch-count', 'Launch Count')}>
                 <div class="n-row" slot="right">
-                  <button class="btn btn-clear" on:click={UserStore.resetLaunchCount}>
+                  <!-- <button class="btn btn-clear" on:click={UserStore.resetLaunchCount}>
                     <NIcon name="delete" className="fill-red" size="18" />
-                  </button>
+                  </button> -->
                   {$UserStore.launchCount}
                 </div>
               </NItem>

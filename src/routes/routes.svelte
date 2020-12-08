@@ -10,7 +10,7 @@
   import FAQRoute from "./faq.svelte";
   import NomieAPIRoute from "./nomie-api.svelte";
   import ExportRoute from "./export.svelte";
-  import ClusterRoute from "./Cluster.svelte";
+  import PeopleRoute from "./People.svelte";
   import TrackerDesigner from "./tracker-designer.svelte";
   import Setup from "./setup.svelte";
 
@@ -23,7 +23,7 @@
   <Route path="/history" component={HistoryRoute} />
   <Route path="/history/:date" component={HistoryRoute} />
   <Route path="/dashboard" component={Dashboard} />
-  <Route path="/Cluster" component={ClusterRoute} />
+  <Route path="/People" component={PeopleRoute} />
   <Route path="/search" component={SearchRoute} />
   <Route path="/settings" component={SettingsRoute} />
   <Route path="/board/:id" component={BoardEditorRoute} />

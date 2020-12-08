@@ -14,8 +14,8 @@ const NPaths = {
     dashboard() {
       return `/dashboard`;
     },
-    Cluster() {
-      return `/Cluster`;
+    People() {
+      return `/People`;
     },
     settings() {
       return "/settings";

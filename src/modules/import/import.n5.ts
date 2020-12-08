@@ -1,4 +1,4 @@
-import type { INormalizedImport, ITrackers, ICluster } from "./import";
+import type { INormalizedImport, ITrackers, IPeople } from "./import";
 import TrackerConfig from "../tracker/tracker";
 import Board from "../board/board";
 import type { IBoard } from "../board/board";
@@ -16,12 +16,12 @@ function getTrackers(fileData: any): ITrackers {
   return trackers;
 }
 
-function getCluster(fileData: any): ICluster {
-  let Cluster: ICluster = {};
-  Object.keys(fileData.Cluster || {}).forEach((personId) => {
-    Cluster[personId] = new Person(fileData.Cluster[personId]);
+function getPeople(fileData: any): IPeople {
+  let People: IPeople = {};
+  Object.keys(fileData.People || {}).forEach((personId) => {
+    People[personId] = new Person(fileData.People[personId]);
   });
-  return Cluster;
+  return People;
 }
 
 function getBoards(fileData: any): Array<IBoard> {
@@ -54,7 +54,7 @@ export function N5ImportNormalizer(importer: any): INormalizedImport {
     trackers: getTrackers(importer),
     boards: getBoards(importer),
     logs: getLogs(importer),
-    Cluster: getCluster(importer),
+    People: getPeople(importer),
     context: importer.context || [],
     locations: (importer.locations || []).map((loc) => {
       return new Location(loc);

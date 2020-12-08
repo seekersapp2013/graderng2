@@ -27,7 +27,7 @@ function parse(str = "", options?: any): Array<TrackableElement> {
     });
 }
 /**
- * Converts a single trackable element like #tag or @Cluster to a TrackableElement
+ * Converts a single trackable element like #tag or @People to a TrackableElement
  * @param {String} str
  */
 function toElement(str: string) {
@@ -61,7 +61,7 @@ export default {
   parse,
   toElement,
   generateRaw,
-  Cluster(str) {
+  People(str) {
     return parse(str).filter((trackableElement) => {
       return trackableElement.type == "person";
     });

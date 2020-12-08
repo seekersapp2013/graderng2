@@ -3,7 +3,7 @@ export default {
   book_time_format: "YYYY-w",
   book_time_unit: "week",
   data_root: "v5-data",
-  data_Cluster_key: "Cluster-v5",
+  data_People_key: "People-v5",
   book_root: "v5-data/books",
   tracker_file: "trackers.json",
   board_file: "boards.json",

@@ -15,7 +15,7 @@ export default {
   },
   picker: {
     label: Lang.t("tracker.type.picker", "Pick from a List"),
-    description: Lang.t("tracker.type.picker_description", "Create a list to select from. Can include trackers, Cluster, or any content"),
+    description: Lang.t("tracker.type.picker_description", "Create a list to select from. Can include trackers, People, or any content"),
   },
   timer: {
     label: Lang.t("tracker.type.timer", "Timer"),

@@ -78,7 +78,7 @@ export default class TrackerInputer {
   /**
    * Note Tracker Type convert to real note
    * This takes a note value, which can be anything including @ # +
-   * and extracts the trackers, Cluster and context.
+   * and extracts the trackers, People and context.
    * @param {Tracker} tracker
    */
   async getNoteTrackerInputAsString(tracker): Promise<string> {
@@ -150,11 +150,11 @@ export default class TrackerInputer {
   //   const tempLog = new NomieLog({ note: this.tracker.note });
   //       // Extract the meta data from the note
   //       const meta = tempLog.getMeta();
-  //       // Get tag, context, Cluster
+  //       // Get tag, context, People
   //       let trackerElements = meta.trackers;
   //       let context = meta.context;
-  //       let Cluster = meta.Cluster;
-  //       return { Cluster, context, trackerElements};
+  //       let People = meta.People;
+  //       return { People, context, trackerElements};
   // }
 
   async getElements(options: ITrackerInputerGetOptions): Promise<Array<string>> {
@@ -175,7 +175,7 @@ export default class TrackerInputer {
       /**
        * Note Tracker Types
        * These might require multiple input popups
-       * loop through the note, get tracker values, add Cluster and context
+       * loop through the note, get tracker values, add People and context
        */
     } else if (this.tracker.type == "note") {
       // Get values as a string

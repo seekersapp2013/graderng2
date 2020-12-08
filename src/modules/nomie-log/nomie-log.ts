@@ -28,7 +28,7 @@ export default class NLog {
   public source?: string;
 
   public trackers: Array<any>;
-  public Cluster: Array<any>;
+  public People: Array<any>;
   public context: Array<any>;
 
   constructor(starter) {
@@ -187,7 +187,7 @@ export default class NLog {
       duration: this.end - this.start,
       startDate: dayjs(this.start),
       endDate: dayjs(this.end),
-      Cluster: trackableElements.filter((te) => te.type == "person"),
+      People: trackableElements.filter((te) => te.type == "person"),
       context: trackableElements.filter((te) => te.type == "context"),
       trackers: trackableElements.filter((te) => te.type == "tracker"),
     });

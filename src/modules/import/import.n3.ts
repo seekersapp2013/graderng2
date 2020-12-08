@@ -30,7 +30,7 @@ export function N3ImportNormalizer(importer: any): INormalizedImport {
     trackers: getTrackers(importer),
     boards: getBoards(importer),
     logs: getLogs(importer),
-    Cluster: {},
+    People: {},
     context: [],
     locations: [],
     dashboards: [],

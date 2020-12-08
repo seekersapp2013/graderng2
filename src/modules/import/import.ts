@@ -13,7 +13,7 @@ export interface ITrackers {
   [key: string]: TrackerConfig;
 }
 
-export interface ICluster {
+export interface IPeople {
   [key: string]: IPerson;
 }
 
@@ -21,7 +21,7 @@ export interface INormalizedImport {
   trackers?: ITrackers;
   boards?: Array<any>;
   context?: Array<string>;
-  Cluster?: ICluster;
+  People?: IPeople;
   locations?: Array<Location>;
   dashboards?: Array<Dashboard>;
   logs?: Array<NLog>;

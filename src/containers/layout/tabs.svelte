@@ -98,8 +98,8 @@
           <div class="notification" />
         {/if}
       </AppTab>
-      {#if $FeatureStore.Cluster}
-        <AppTab link={NPaths.routes.Cluster()} icon="user" label={Lang.t('tabs.Cluster', 'Cluster')} />
+      {#if $FeatureStore.People}
+        <AppTab link={NPaths.routes.People()} icon="user" label={Lang.t('tabs.People', 'People')} />
       {/if}
       <AppTab link={NPaths.routes.settings()} icon="settings" label={Lang.t('tabs.settings', 'Settings')} />
 

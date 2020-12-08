@@ -85,7 +85,7 @@
     more: DotsHorizontal,
     moreVertical: DotsVertical,
     newTab: FolderAdd,
-    Cluster: UserGroup,
+    People: UserGroup,
     pin: LocationMarker,
     radio: RadioButton24,
     radioFilled: RadioButtonChecked24,

@@ -25,7 +25,7 @@
   import { TrackerStore } from "../../store/tracker-store";
   import { UserStore } from "../../store/user-store";
   import { Interact } from "../../store/interact";
-  import { ClusterStore } from "../../store/Cluster-store";
+  import { PeopleStore } from "../../store/People-store";
 
   // vendors
   import dayjs from "dayjs";
@@ -167,9 +167,9 @@
         className={logMeta.trackers.length ? '' : 'pb-2'} />
     {/if}
 
-    {#if logMeta.trackers.length || logMeta.Cluster.length}
+    {#if logMeta.trackers.length || logMeta.People.length}
       <div class="tracker-grid n-row">
-        {#each displayLog.Cluster as person}
+        {#each displayLog.People as person}
           <NTrackerSmallBlock
             truncate={true}
             element={person}
@@ -178,8 +178,8 @@
               dispatch('personClick', { person: person, log });
             }}>
             <span slot="emoji" class="emoji">
-              {#if $ClusterStore.Cluster[person.id]}
-                <NBall size={40} radius={0.3} avatar={$ClusterStore.Cluster[person.id].avatar} username={person.id} className="ml-2" />
+              {#if $PeopleStore.People[person.id]}
+                <NBall size={40} radius={0.3} avatar={$PeopleStore.People[person.id].avatar} username={person.id} className="ml-2" />
               {:else}
                 <NBall size={40} username={person.id} className="ml-2" radius={0.3} />
               {/if}

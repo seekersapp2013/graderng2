@@ -398,7 +398,7 @@ export default class StatsProcessor implements IStats {
    */
   getRelated(overrideRows?: Array<NLog>) {
     let rows = overrideRows || this.rows;
-    let Cluster = {};
+    let People = {};
     let context = {};
     let tags = {};
 
@@ -410,9 +410,9 @@ export default class StatsProcessor implements IStats {
         tags[trackerElement.id] = tags[trackerElement.id] || 0;
         tags[trackerElement.id]++;
       });
-      row.Cluster.forEach((personElement) => {
-        Cluster[personElement.id] = Cluster[personElement.id] || 0;
-        Cluster[personElement.id]++;
+      row.People.forEach((personElement) => {
+        People[personElement.id] = People[personElement.id] || 0;
+        People[personElement.id]++;
       });
       row.context.forEach((contextElement) => {
         context[contextElement.id] = context[contextElement.id] || 0;
@@ -431,11 +431,11 @@ export default class StatsProcessor implements IStats {
       });
     };
 
-    let ClusterArr = returnMap(Cluster, "person", "@");
+    let PeopleArr = returnMap(People, "person", "@");
     let tagArr = returnMap(tags, "tracker", "#");
     let contextArr = returnMap(context, "context", "+");
 
-    let relatedArr = [...ClusterArr, ...tagArr, ...contextArr].sort((a, b) => {
+    let relatedArr = [...PeopleArr, ...tagArr, ...contextArr].sort((a, b) => {
       return a.count < b.count ? 1 : -1;
     });
 

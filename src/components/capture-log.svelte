@@ -45,7 +45,7 @@
   import { ActiveLogStore } from "../store/active-log";
   import { UserStore } from "../store/user-store";
   import { Lang } from "../store/lang";
-  import { ClusterStore } from "../store/Cluster-store";
+  import { PeopleStore } from "../store/People-store";
   import { ContextStore } from "../store/context-store";
   import Text from "./text/text.svelte";
   import PositivityMenu from "./positivity-selector/positivity-menu.svelte";
@@ -154,14 +154,14 @@
             });
           return tkrs.length ? tkrs : null;
 
-          // Search for Cluster
+          // Search for People
         } else if (type === "person") {
           try {
-            let Cluster = Object.keys($ClusterStore.Cluster || []).filter(
+            let People = Object.keys($PeopleStore.People || []).filter(
               (person) => person.toLowerCase().search(searchTag.replace("@", "")) > -1
             );
-            return Cluster.length
-              ? Cluster.map((username) => {
+            return People.length
+              ? People.map((username) => {
                   return { tag: username, emoji: "👤", type: "person" };
                 })
               : null;

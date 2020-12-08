@@ -2,7 +2,7 @@
   import { createEventDispatcher } from "svelte";
   import NomieUOM from "../../utils/nomie-uom/nomie-uom";
   import AvatarBall from "../tracker-ball/ball.svelte";
-  import { ClusterStore } from "../../store/Cluster-store";
+  import { PeopleStore } from "../../store/People-store";
   import Text from "../text/text.svelte";
   import Button from "../button/button.svelte";
   const dispatch = createEventDispatcher();
@@ -51,15 +51,15 @@
     {:else if element.type == 'tracker'}
       <span class="emoji" style={`color:${(element.obj || {}).color || '#CCC'}`}>{(element.obj || {}).emoji || '⚪️'}</span>
     {:else if element.type == 'person'}
-      {#if $ClusterStore.Cluster[element.id] && $ClusterStore.Cluster[element.id].avatar}
+      {#if $PeopleStore.People[element.id] && $PeopleStore.People[element.id].avatar}
         <AvatarBall
           size={24}
-          avatar={$ClusterStore.Cluster[element.id].avatar}
+          avatar={$PeopleStore.People[element.id].avatar}
           style={` width:24px; border-radius:32%; overflow:hidden; flex-shrink:0; margin-right:10px;`} />
-      {:else if $ClusterStore.Cluster[element.id] && $ClusterStore.Cluster[element.id].displayName}
+      {:else if $PeopleStore.People[element.id] && $PeopleStore.People[element.id].displayName}
         <AvatarBall
           size={24}
-          username={$ClusterStore.Cluster[element.id].displayName}
+          username={$PeopleStore.People[element.id].displayName}
           style={` width:24px; border-radius:32%; overflow:hidden; flex-shrink:0; margin-right:10px;`} />
       {/if}
     {/if}

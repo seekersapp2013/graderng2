@@ -101,10 +101,10 @@
   } // end load saved compares
 
   async function comparePerson() {
-    let Cluster: any = await Interact.select("person", true);
-    if (Cluster.length) {
-      for (var i = 0; i < Cluster.length; i++) {
-        const person = Cluster[i];
+    let People: any = await Interact.select("person", true);
+    if (People.length) {
+      for (var i = 0; i < People.length; i++) {
+        const person = People[i];
         let compareObj = new StatsRef({
           type: "person",
           key: person.username,

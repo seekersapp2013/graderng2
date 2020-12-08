@@ -37,7 +37,7 @@ export default [
   {
     question: `What are the limits of Nomie's API?`,
     answer: `You get 10 slots to store data to push into Nomie. When Nomie imports a record, it will be removed, freeing up the slot. 
-    I do this to ensure Cluster don't go hog wild like they did with Nomie 2 and 3's API`,
+    I do this to ensure People don't go hog wild like they did with Nomie 2 and 3's API`,
   },
   {
     question: `Can I auto import things into this version of Nomie?`,

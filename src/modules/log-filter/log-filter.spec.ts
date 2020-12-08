@@ -67,7 +67,7 @@ describe("modules/log-filter trackers", function () {
   });
 });
 
-describe("modules/log-filter Cluster", function () {
+describe("modules/log-filter People", function () {
   it("should search for a trackableElement if provided", () => {
     let filter = {
       search: brandonTrackableElement,

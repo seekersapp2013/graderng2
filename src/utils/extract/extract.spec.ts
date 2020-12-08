@@ -138,7 +138,7 @@ describe("utils/extractor", function () {
     expect(results[5].value).toEqual(3600);
   });
 
-  it("extract-Cluster", () => {
+  it("extract-People", () => {
     let note = "What a test! @brandon_corbin @b41d34 #extractor(4) +context1 +winner";
     let results = extractor.context(note);
     expect(results[0].id).toEqual("context1");
@@ -148,15 +148,15 @@ describe("utils/extractor", function () {
     expect(results2.length).toEqual(0);
     // expect(math.sum([1, 2])).toEqual(3);
   });
-  it("extract-Cluster", () => {
+  it("extract-People", () => {
     let note = "What a test! @brandon_corbin @b41d34 #extractor(4) +context1 +winner";
-    let results = extractor.Cluster(note);
+    let results = extractor.People(note);
 
     expect(results[0].id).toEqual("brandon_corbin");
     expect(results[1].id).toEqual("b41d34");
 
     let note2 = "No Context";
-    let results2 = extractor.Cluster(note2);
+    let results2 = extractor.People(note2);
     expect(results2.length).toEqual(0);
     // expect(math.sum([1, 2])).toEqual(3);
   });

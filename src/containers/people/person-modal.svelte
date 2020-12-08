@@ -26,7 +26,7 @@
 
   import { LedgerStore } from "../../store/ledger";
   import { Interact } from "../../store/interact";
-  import { ClusterStore } from "../../store/Cluster-store";
+  import { PeopleStore } from "../../store/People-store";
 
   let domVisible = false;
   let avatarBase64 = null;
@@ -36,10 +36,10 @@
   let lastActivePersonKey;
   let activeLogs;
 
-  $: if ($Interact.Cluster.active && lastActivePersonKey !== $Interact.Cluster.active) {
-    lastActivePersonKey = $Interact.Cluster.active;
+  $: if ($Interact.People.active && lastActivePersonKey !== $Interact.People.active) {
+    lastActivePersonKey = $Interact.People.active;
     domVisible = true;
-    activePerson = new Person($ClusterStore.Cluster[$Interact.Cluster.active]);
+    activePerson = new Person($PeopleStore.People[$Interact.People.active]);
   }
 
   const state = {
@@ -52,7 +52,7 @@
       "This only deletes them from your list, NO log data will be deleted."
     );
     if (confirmed) {
-      await ClusterStore.deletePerson(activePerson);
+      await PeopleStore.deletePerson(activePerson);
       Interact.toast(`${activePerson.username} removed`);
       close();
     }
@@ -60,7 +60,7 @@
 
   async function saveActivePerson() {
     try {
-      await ClusterStore.savePerson(activePerson);
+      await PeopleStore.savePerson(activePerson);
       Interact.toast("Saved");
     } catch (e) {
       Interact.alert("Error", e.message);
@@ -98,8 +98,8 @@
   }
 
   async function loadActiveLogs() {
-    let active = $Interact.Cluster.active;
-    activePerson = new Person($ClusterStore.Cluster[active]);
+    let active = $Interact.People.active;
+    activePerson = new Person($PeopleStore.People[active]);
     activeLogs = await LedgerStore.queryPerson(active, dayjs().subtract(1, "year"), dayjs());
   }
 
