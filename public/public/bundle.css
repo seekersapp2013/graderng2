@@ -78,5 +78,6 @@ input.input-emoji.svelte-1lvekf3{font-size:120px;max-width:100px;min-width:200px
 .history-title.svelte-oc9j9z{transition:all 0.2s ease-in-out;padding-left:4px}.scrolled .history-title.hide-scrolled{opacity:0}body .history-title.show-scrolled{opacity:0}.scrolled .history-title.show-scrolled{opacity:1}.today-btn.svelte-oc9j9z{position:fixed;left:10px;bottom:10px;border-radius:20px;padding:6px 12px;font-size:12px}.page-history .n-item .n-item:last-child{border-bottom:none !important}
 .n-list.svelte-4k9pzp{max-width:100vw;overflow:hidden}
 .page-search .n-item .n-item:last-child{border-bottom:none !important}
+button.svelte-k352bi{outline:1px solid black;background:aliceblue;cursor:pointer}
 
 /*# sourceMappingURL=bundle.css.map */

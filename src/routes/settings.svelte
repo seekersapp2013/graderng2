@@ -1,4 +1,5 @@
 <script>
+  
   //Vendors
   import { navigate, Link } from "svelte-routing";
   import { onMount } from "svelte";
@@ -204,12 +205,62 @@ Note: Your data will not automatically move over. You'll first need to export it
     Storage.local.put("settings/view", v);
     Device.scrollToTop();
   }
+  
+
+
+  let basic =  20 + $UserStore.launchCount + TrackerStore.getAsArray().length;
+
+
+   // variable declarations
+   let money = basic;
+  let numberOfBuilding = 0;
+  let buildingProduction = 1; // $ produced per building per tick
+  let tickSpeed = 1000;
+    
+  // reactive declarations
+  $: cantBuy = cost > money;
+  $: cost = (numberOfBuilding + 1) * 5;
+  $: productionPerTick = numberOfBuilding * buildingProduction;
+  
+  // function declarations
+  
+  // update the values of `money` and `numberBuildings`
+  function updateNumbers(){
+    money -= cost;
+    numberOfBuilding += 1
+  }
+
+  // update `money` with `productionPerTick` and set a timeout to call itself after `tickSpeed` ms
+  function updateMoney(){
+    money += productionPerTick;
+    setTimeout(updateMoney, tickSpeed);
+  }
+  
+  
   // const setTimeout = setTimeout;
   onMount(() => {
     Device.scrollToTop();
+    updateMoney();
   });
+
+  
 </script>
 
+
+
+<style>
+  button {
+    outline: 1px solid black;
+    background: aliceblue;
+    cursor: pointer;
+  }
+
+  button.cantbuy {
+    background: #555;
+    color: #DDD;
+    cursor: default;
+  }
+</style>
 <NLayout pageTitle="Settings">
   <div slot="header">
     <div class="n-toolbar-grid container">
@@ -229,7 +280,10 @@ Note: Your data will not automatically move over. You'll first need to export it
               changeView('tweaks');
             } }, { label: 'Data', active: view == 'data', click() {
               changeView('data');
-            } }, { label: 'About', active: view == 'about', click() {
+            } },
+            { label: 'Card', active: view == 'card', click() {
+              changeView('card');
+            } },{ label: 'About', active: view == 'about', click() {
               changeView('about');
             } }]} />
     </div>
@@ -341,6 +395,13 @@ Note: Your data will not automatically move over. You'll first need to export it
                 <span slot="left">👨‍👨‍👧‍👧</span>
               </NItem>
             </div> -->
+
+            {:else if view == 'card'}
+
+            <h2> Card Request Form</h2>
+            <div class='prefinery-form-embed'></div>
+
+
           {:else if view == 'about'}
             <!--
               *******************************************
@@ -350,9 +411,32 @@ Note: Your data will not automatically move over. You'll first need to export it
             <div class="n-list pb-1">
               <NItem itemDivider>Grader Points</NItem>
               
-              <NItem title={Lang.t('My Points')}>
-                <span slot="right">561</span>
+              <NItem title={Lang.t('You Have')}>
+                <span slot="right">{money}</span>
               </NItem>
+
+              <NItem title={Lang.t('You Used')}>
+                <span slot="right">{numberOfBuilding} </span>
+              </NItem>
+
+              <NItem title={Lang.t('Next Purchase Will Cost')}>
+                <span slot="right">{numberOfBuilding}  </span>
+              </NItem>
+
+              <NItem title={Lang.t('You Gained')}>
+                <span slot="right">{productionPerTick} </span>
+              </NItem>
+
+              <!-- <h1>You have {money} $!</h1> -->
+
+              <!-- <button on:click={updateNumbers} class:cantbuy={cantBuy} disabled={cantBuy}>
+                <p>{numberOfBuilding} buildings bought, next one cost {cost}$.</p>
+                <p>You gain {productionPerTick}$ / tick.</p>
+                <p>Grow Points</p>
+              </button> -->
+
+
+
 <!--               
               <NItem detail title="Learn More" href="https://nomie.app?s=dap">
                 <span slot="right" class="text-inverse-3">Nomie.app</span>
